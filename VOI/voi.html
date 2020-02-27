@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet'>
+  <link href='https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' rel='stylesheet'>
+  <link href='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css' rel='stylesheet'>
+  <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.js'></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'>
+  <style>
+  .mobile-style {
+    border: 6px double #424242!important;
+    border-radius: 25px!important;
+    min-height: 760px;
+    min-width: 375px;
+    max-height: 760px;
+    max-width: 375px;
+    overflow: hidden;
+  }
+  .mobile-top {
+    position: relative;
+    margin: auto;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-left-radius: 22px!important;
+    border-bottom-right-radius: 22px!important;
+    width: 250px;
+    height: 4px;
+    z-index: 100;
+  }
+  .mobile-utils-container {
+    margin: auto;
+    border: 1px solid #4c4a4a;
+    width: 100px;
+    margin-top: -4px;
+  }
+  .camera {
+    position: absolute;
+    padding: 4px;
+    border-radius: 100%;
+    background: #615f5f;
+    top: 10px;
+    right: 40px;
+  }
+  .mobile-content {
+    display: flex;
+    justify-content: center;
+  }
+  .voi-view-container {
+    position: relative;
+  }
+  .img-bg {
+    margin-top: -33px;
+    background-image: url('maps-bg.png');
+    background-color: #cccccc;
+    height: 750px;
+    width: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .img-bg-btn {
+    text-align: center;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  .cashier-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -32px;
+    background: #333333;
+    color: #ffffff;
+    padding-top: 45px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+  }
+  .bold-text {
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+  <div id='app'>
+    <v-app>
+      <v-content>
+        <v-container fill-height>
+          <v-layout justify-center align-center>
+            <v-card class="mobile-style">
+              <v-card-title class="secondary mobile-top">
+                <div class="mobile-utils-container">
+                    <div class="camera"></div>
+                </div>
+              </v-card-title>
+              <v-card-text class="mobile-content">
+                <div v-show="showVoiContainer" class="voi-view-container">
+                  <div class="img-bg">
+                    <v-btn @click="addPmModal = true" small rounded class="secondary img-bg-btn">
+                      Add a payment method
+                    </v-btn>
+                  </div>
+                  <v-dialog v-model="addPmModal" max-width="300">
+                    <v-card>
+                      <v-card-title class="justify-center">
+                        <div>
+                          Chose cashier type
+                        </div>
+                      </v-card-title>
+                      <v-card-text>
+                        <div :key="cashier.text" v-for="cashier in cashierTypes">
+                          <v-btn @click="showCashierMethod(cashier)" class="primary--text my-3" rounded outlined block>
+                            {{ cashier.text }}
+                          </v-btn>
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                </div>
+                <div v-show="showCashier">
+                  <div class="cashier-header">
+                    <div @click="closeCashier" style="cursor: pointer" class="body-2 white--text">
+                      Cancel
+                    </div>
+                    <div text class="bold-text subheading">
+                        Payment.
+                    </div>
+                    <div style="visibility: hidden">Payment</div>
+                  </div>
+                  <div id='cashier'></div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+
+  <script src='https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js'></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: {
+        showVoiContainer: true,
+        showCashier: false,
+        addPmModal: false,
+        cashierTypes: [
+          {
+            text: 'Sweden - List style',
+            userId: 'PayTestSE',
+            listType: 'list',
+            locale: 'sv_SE'
+          },
+          {
+            text: 'Sweden - Card style',
+            userId: 'PayTestSE',
+            listType: 'grid',
+            locale: 'sv_SE'
+          },
+          {
+            text: 'Norway - List style',
+            userId: 'PayTestNO',
+            listType: 'list',
+            locale: 'no_NO'
+          },
+          {
+            text: 'Norway - Card style',
+            userId: 'PayTestNO',
+            listType: 'grid',
+            locale: 'no_NO'
+          }
+        ]
+      },
+      methods: {
+        closeCashier () {
+          this.showVoiContainer = true
+          this.showCashier = false
+        },
+        showCashierMethod (configs) {
+          this.initCashier(configs)
+          this.addPmModal = false
+          this.showVoiContainer = false,
+          this.showCashier = true
+        },
+        initCashier (configs) {
+          document.querySelector('#cashier').innerHTML = null
+          var CashierInstance = new _PaymentIQCashier('#cashier',
+            {
+              'merchantId': 198003,
+              'userId': configs.userId,
+              locale: configs.locale,
+              listType: configs.listType,
+              'sessionId': 123,
+              'environment': 'test',
+              'font': 'google,sans-serif',
+              'autoOpenFirstPaymentMethod': false,
+              'listRadio': false,
+              'showAccounts': false,
+              'showFooter': false,
+              mode: 'ecommerce',
+              disableBtnAtZero: false,
+              containerHeight: '760px',
+              containerWidth: '375px',
+              amount: 100,
+              'theme': {
+                'input': {
+                  'borderRadius': '5px'
+                },
+                'loader': {
+                  'color': '#333333'
+                },
+                'buttons': {
+                  'color': '#333333'
+                },
+                'border': {
+                  'radius': '40px'
+                }
+              }
+            },
+              (api) => {    
+                api.on({
+                  update: data => console.log('The passed in data was set', data),
+                  success: data => console.log('Transaction was completed successfully', data),
+                  failure: data => console.log('Transaction failed', data),
+                  isLoading: data => console.log('Data is loading', data),
+                  doneLoading: data => console.log('Data has been successfully downloaded', data),
+                  newProviderWindow: data => console.log('A new window / iframe has opened', data)
+                }),
+              api.css(`
+              .ecommerce-amount {
+                display: none;
+              }
+              .transaction-overview  {
+                display:none;
+              }
+            `)
+            })
+            window.CashierInstance = CashierInstance
+        }
+      }
+    })
+  </script>
+</body>
+</html>
