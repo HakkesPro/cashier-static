@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cashier</title>
+    <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.js'></script>
+    <!-- <script type=text/javascript src='http://localhost:9091/dist/cashier.js'></script> -->
+    <style>
+      body { 
+        margin: 0px;
+      }
+      .cashier-containers-wrapper { 
+        display: flex;
+        flex-wrap: wrap;
+      }
+      div[id^="cashier-"] {
+        flex-grow: 1;
+        height: 650px;
+        max-width: 50%;
+        min-width: 30%;
+        margin: 20px;
+        border: 1px solid #ccc;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='cashier-containers-wrapper'>
+      
+      <div id='cashier-1' class='piq-cashier-wrapper'></div>
+      <div id='cashier-2' class='piq-cashier-wrapper'></div>
+      <div id='cashier-3' class='piq-cashier-wrapper'></div>
+      <div id='cashier-4' class='piq-cashier-wrapper'></div>
+      <div id='cashier-5' class='piq-cashier-wrapper'></div>
+      <div id='cashier-6' class='piq-cashier-wrapper'></div>
+      <div id='cashier-7' class='piq-cashier-wrapper'></div>
+      <div id='cashier-8' class='piq-cashier-wrapper'></div>
+      <div id='cashier-9' class='piq-cashier-wrapper'></div>
+    </div>
+
+    </div>
+      <script>
+
+        var containers = document.getElementsByClassName('piq-cashier-wrapper')
+        
+        const setupCashier = function (id, config, overwrite = false) {
+          if (!config) {
+            config = {}
+          }
+          if (typeof Object.assign !== 'function') {
+            // Must be writable: true, enumerable: false, configurable: true
+            Object.defineProperty(Object, "assign", {
+              value: function assign(target, varArgs) { // .length of function is 2
+                'use strict';
+                if (target === null || target === undefined) {
+                  throw new TypeError('Cannot convert undefined or null to object');
+                }
+                var to = Object(target);
+                for (var index = 1; index < arguments.length; index++) {
+                  var nextSource = arguments[index];
+                  if (nextSource !== null && nextSource !== undefined) { 
+                    for (var nextKey in nextSource) {
+                      // Avoid bugs when hasOwnProperty is shadowed
+                      if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                        to[nextKey] = nextSource[nextKey];
+                      }
+                    }
+                  }
+                }
+                return to;
+              },
+              writable: true,
+              configurable: true
+            });
+          }
+          var defaultConfig = {              
+              "userId": "PayTestSE",
+              "merchantId": 1015,
+              "environment": "test",
+              "locale": "sv_SE",
+              "amount": 250,
+              'font': 'google,fantasy',
+              "tabs": true,
+              "history": true,
+              "showAmountLimits": true,
+              "showTermsConditions": false,
+              "allowCancelPendingWithdrawal": true,
+              "pmListLimit": 50,
+              "alwaysShowSubmitBtn": true,
+              "saveAccountOption": true,
+              hideTxOverview: true,
+              showBonusCode: true,
+              attributes: {
+                bonusCode: 'heeeej'
+              },
+              user: {
+                email: 'sindarenius@gmail.com'
+              },
+              trackingPixels: [
+                {
+                  type: 'allDeposits', // Add one of these event types: 'firstDeposit', 'allDeposits', or 'allWithdrawals'
+                  scriptSrc: '', // Script source to load when intializing the cashier,
+                  trackingName: 'Alright', // Custom name of this type of event, eg. "All-Deposits",
+                  imgSrc: 'https://imgcomfort.com/Userfiles/Upload/images/illustration-geiranger.jpg' // Add a source to the tracking pixel (img) that should be fired when the event occurs
+                },
+                {
+                  type: 'allDeposits', // Add one of these event types: 'firstDeposit', 'allDeposits', or 'allWithdrawals'
+                  scriptSrc: '', // Script source to load when intializing the cashier,
+                  trackingName: 'Alright', // Custom name of this type of event, eg. "All-Deposits",
+                  imgSrc: 'https://babeltechreviews.com/wp-content/uploads/2018/07/rendition1.img_.jpg' // Add a source to the tracking pixel (img) that should be fired when the event occurs
+                }
+              ],
+              "theme": {
+                "input": {
+                  "borderRadius": "10px"
+                },
+                "labels": {
+                  "color": "#333333"
+                },
+                "headings": {
+                  "color": "#333333"
+                },
+                "buttons": {
+                  "color": "#319478"
+                },
+                "border": {
+                  "radius": "10px"
+                },
+                "creditcardicons": {
+                  "creditcardUrl": "default",
+                  "cvvUrl": "default",
+                  "expirydateUrl": "default"
+                }
+              }
+          }
+          var configObject = overwrite ? { ...config, theme: { ...defaultConfig.theme } } : Object.assign({}, defaultConfig, config)
+          
+          new _PaymentIQCashier('#' + id,
+          configObject,
+          function (api) {
+            api.on({
+              update: data => console.log('The passed in data was set', data),
+              success: data => console.log('Transaction was completed successfully', data),
+              failure: data => console.log('Transaction failed', data),
+              isLoading: data => console.log('Data is loading', data),
+              doneLoading: data => console.log('Data has been successfully downloaded', data),
+              newProviderWindow: data => console.log('A new window / iframe has opened', data),
+              paymentMethodSelect: data => console.log('Payment method was selected', data),
+              paymentMethodPageEntered: data => console.log('New payment method page was opened', data),
+              navigate: data => console.log('Path navigation triggered', data)
+            })
+          }
+        )    
+      }
+      setupCashier('cashier-1')
+      setupCashier('cashier-2', { showAccounts: 'inline' })
+      setupCashier('cashier-3', { singlePageFlow: true })
+      setupCashier('cashier-4', { listType: 'grid' })
+      setupCashier('cashier-5', { providerType: 'creditcard' })
+      setupCashier('cashier-6', { providerType: 'creditcard', tabs: false })
+      setupCashier('cashier-7', { "showListHeaders": true, "predefinedAmounts": [ 10, 25, 50, 100, 250, 500 ] })
+      setupCashier('cashier-8', { "showListHeaders": true, mode: 'ecommerce', amount: 500, showAccounts: 'inline', globalSubmit: true })
+      setupCashier('cashier-9', { environment: 'test', merchantId: 198003, userId: 'PayTestSE', tabs: false, amountFirst: true, showAmountLimits: true }, 'overwrite')
+      </script>
+  </body>
+</html>
