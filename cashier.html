@@ -24,26 +24,7 @@ var CashierInstance = new _PaymentIQCashier('#cashier',
 	"userId": "PayTestSE",
 	"sessionId": 123,
 	"environment": "test",
-	"history": true,
-	"listRadio": "false",
-	"tabs": "true",
-	amount: 200,
-	providerType: 'trustly',
-	allowMobilePopup: true,
-	"theme": {
-		"input": {
-			"borderRadius": "22px"
-		},
-		"loader": {
-			"color": "#333333"
-		},
-		"buttons": {
-			"color": "#333333"
-		},
-		"border": {
-			"radius": "22px"
-		}
-	}
+	fetchConfig: true
 },
   (api) => {    
     api.on({
