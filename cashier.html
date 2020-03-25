@@ -19,13 +19,20 @@
 
 <script>
  
+ var configs = {
+  fetchConfig: true,
+  merchantId: 1015,
+	userId: "PayTestSE",
+  containerWidth: '900px',
+  containerHeight: '95vh',
+  tabs: true,
+  history: true,
+  environment: 'test'
+}
+
 var CashierInstance = new _PaymentIQCashier('#cashier',
 {
-	"merchantId": 1015,
-	"userId": "PayTestSE",
-	"sessionId": 123,
-	"environment": "test",
-	fetchConfig: true
+  ...configs
 },
   (api) => {    
     api.on({
