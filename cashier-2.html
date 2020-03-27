@@ -21,14 +21,15 @@
 <script>
  
  var configs = {
-  fetchConfig: true,
+  fetchConfig: false,
   merchantId: 1015,
 	userId: "PayTestSE",
   containerWidth: '100%',
   containerHeight: '95vh',
   tabs: true,
   history: true,
-  environment: 'test'
+  environment: 'test',
+  providerType: 'paypal'
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
