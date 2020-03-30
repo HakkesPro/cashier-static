@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Cashier HTML Example</title>
+<!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script> -->
+<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.1.0.18.js'></script>
+<!-- <script type=text/javascript src='https://192.168.10.104:9091/dist/cashier.js'></script> -->
+<style> html, body { margin: 0px; overflow: hidden; } 
+#cashier {
+	height: 100vh;
+  display: flex;
+}
+</style>
+</head>
+<body>
+
+  <div id="cashier"></div>
+
+<script>
+ 
+ var configs = {
+  fetchConfig: false,
+  merchantId: 198003,
+	userId: "PayTestCA",
+  containerWidth: '100%',
+  containerHeight: '95vh',
+  tabs: true,
+  history: true,
+  environment: 'test',
+  providerType: 'idebit'
+}
+
+var CashierInstance = new _PaymentIQCashier('#cashier',
+{
+  ...configs
+},
+  (api) => {    
+    api.on({
+      update: data => console.log('The passed in data was set', data),
+      success: data => console.log('Transaction was completed successfully', data),
+      failure: data => console.log('Transaction failed', data),
+      isLoading: data => console.log('Data is loading', data),
+      doneLoading: data => console.log('Data has been successfully downloaded', data),
+      newProviderWindow: data => console.log('A new window / iframe has opened', data)
+    }),
+  api.css(`
+  
+`)
+})
+
+</script>
+
+</body>
+</html>
