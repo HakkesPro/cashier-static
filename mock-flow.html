@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mock iframe flow</title>
+</head>
+<body>
+  <button onclick="openNew('success')">
+    Success
+  </button>
+  <button onclick="openNew('failed')">
+    Failed
+  </button>
+
+<script>
+  const getTxId = () => {
+    var pairs = window.location.search.substring(1).split("&"),
+    obj = {},
+    pair,
+    i;
+
+    for ( i in pairs ) {
+      if ( pairs[i] === "" ) continue;
+
+      pair = pairs[i].split("=");
+      obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
+    }
+
+    return obj.txId || '111111'
+  }
+  const openNew = (redirect) => {
+    window.open(`http://localhost:5000/redirect-${redirect}?txId=${getTxId()}`)
+  }
+</script>
+</body>
+</html>
