@@ -15,7 +15,8 @@
   </button>
 
 <script>
-  const getTxId = () => {
+  const addParams = () => {
+    let urlParams = ''
     var pairs = window.location.search.substring(1).split("&"),
     obj = {},
     pair,
@@ -28,10 +29,13 @@
       obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
     }
 
-    return obj.txId || '111111'
+    for (let i in obj) {
+      urlParams += `${i}=${obj[i]}&`
+    }
+   return urlParams.substring(0, urlParams.length - 1)
   }
   const openNew = (redirect) => {
-    window.open(`http://localhost:5000/redirect-${redirect}?txId=${getTxId()}`)
+    window.open(`http://localhost:5000/redirect-${redirect}?${addParams}}`)
   }
 </script>
 </body>
