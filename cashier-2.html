@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Cashier HTML Example</title>
-<!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script> -->
+<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script>
 <!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.1.0.18.js'></script> -->
-<script type=text/javascript src='http://192.168.10.104:9091/dist/cashier.js'></script>
+<!-- <script type=text/javascript src='http://192.168.10.104:9091/dist/cashier.js'></script> -->
 <style> html, body { margin: 0px; overflow: hidden; } 
 #cashier {
 	height: 100vh;
   display: flex;
+  justify-content: center;
 }
 </style>
 </head>
@@ -23,14 +24,14 @@
  
  var configs = {
   fetchConfig: false,
-  merchantId: 1015,
+  merchantId: 198003,
 	userId: "PayTestSE",
-  containerWidth: '100%',
+  containerWidth: '550px',
   containerHeight: '95vh',
   tabs: true,
   history: true,
   environment: 'test',
-  providerType: 'paypal'
+  providerType: 'skrill'
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
