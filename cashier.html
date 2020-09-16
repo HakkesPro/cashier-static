@@ -13,11 +13,19 @@
       margin: 15px;
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+    }
+    #cashier {
+      max-width: 100%;
+      border: 2px solid green;
+      border-radius: 5px;
+      padding: 3px;
     }
   </style>
 </head>
 
 <body>
+  <h3>THIS CASHIER IS INSIDE AN IFRAME, JUST AS IT IS IN A LIVE CASHIER ON A MERCHANTS PAGE</h3>
   <div id='cashier'></div>
 <script>
 
@@ -29,16 +37,7 @@ var configs = {
   "containerWidth": '450px',
   "containerHeight": 'auto',
   containerMinHeight: '500px',
-  "showAccounts": "false",
-  listType: 'list',
-  tabs: true,
-  history: true,
-  "font": "google, Exo+2:400,500,600,700,900",
-  "theme": {
-    input: {
-      fontSize: '14px'
-    }
-  }
+  fetchConfig: true
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
