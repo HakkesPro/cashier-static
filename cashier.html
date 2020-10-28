@@ -17,7 +17,6 @@
     }
     #cashier {
       max-width: 100%;
-      border: 2px solid green;
       border-radius: 5px;
       padding: 3px;
     }
@@ -25,7 +24,6 @@
 </head>
 
 <body>
-  <h3>THIS CASHIER IS INSIDE AN IFRAME, JUST AS IT IS IN A LIVE CASHIER ON A MERCHANTS PAGE</h3>
   <div id='cashier'></div>
 <script>
 
@@ -37,7 +35,8 @@ var configs = {
   "containerWidth": '450px',
   "containerHeight": 'auto',
   containerMinHeight: '500px',
-  fetchConfig: true
+  fetchConfig: true,
+  providerType: 'paypal'
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
