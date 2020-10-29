@@ -47,14 +47,20 @@ var CashierInstance = new _PaymentIQCashier('#cashier',
 },
   (api) => {
     api.on({
-      // cashierInitLoad: () => console.log('Cashier init load'),
+      cashierInitLoad: () => console.log('Cashier init load'),
       update: data => console.log('The passed in data was set', data),
       success: data => console.log('Transaction was completed successfully', data),
       failure: data => console.log('Transaction failed', data),
+      pending: data => console.log('Transaction is pending', data),
+      unresolved: data => console.log('Transaction is unresolved', data),
       isLoading: data => console.log('Data is loading', data),
       doneLoading: data => console.log('Data has been successfully downloaded', data),
       newProviderWindow: data => console.log('A new window / iframe has opened', data),
-      cancelledPendingWD: data => console.log('cancelledPendingWD', data)
+      paymentMethodSelect: data => console.log('Payment method was selected', data),
+      paymentMethodPageEntered: data => console.log('New payment method page was opened', data),
+      navigate: data => console.log('Path navigation triggered', data),
+      cancelledPendingWD: data => console.log('A pending withdrawal has been cancelled', data),
+      validationFailed: data => console.log('Transaction attempt failed at validation', data)
     }),
   api.css(`
   #cashier .tabs tab {
