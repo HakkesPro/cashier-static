@@ -61,7 +61,9 @@ var CashierInstance = new _PaymentIQCashier('#cashier',
       paymentMethodPageEntered: data => console.log('New payment method page was opened', data),
       navigate: data => console.log('Path navigation triggered', data),
       cancelledPendingWD: data => console.log('A pending withdrawal has been cancelled', data),
-      validationFailed: data => console.log('Transaction attempt failed at validation', data)
+      validationFailed: data => console.log('Transaction attempt failed at validation', data),
+      cancelled: data => console.log('Transaction cancelled by user', data),
+      onLoadError: data => console.log('onLoadError error', data)
     }),
   api.css(`
   #cashier .tabs tab {
