@@ -9,6 +9,7 @@
   <!-- <script type=text/javascript src="/Users/hakansundstrom/Documents/Dev/Work/PaymentIQ-Cashier-V2-Integration/dist/cashier.js"></script> -->
   <script type=text/javascript src='https://static.paymentiq.io/cashier/cashier.experimental.js'></script>
   <!-- <script type=text/javascript src='http://localhost:9091/dist/cashier.js'></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <style>
     body {
       margin: 15px;
@@ -27,16 +28,19 @@
 
 <body>
   <div id='cashier'></div>
+
+
 <script>
 
 var configs = {
-  "merchantId": 198003,
-  "userId": "PayTestSE",
+  "merchantId": 1015,
+  "userId": 'PayTestSE',
   "sessionId": 123,
   "environment": "test",
   "containerWidth": '100%',
   "containerHeight": 'auto',
   containerMinHeight: '500px',
+  showTransactionsOnly: true,
   // fetchConfig: true,
   // providerType: 'paypal',
   allowMobilePopup: true,
