@@ -8,8 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cashier</title>
   <!-- <script type=text/javascript src="/Users/hakansundstrom/Documents/Dev/Work/PaymentIQ-Cashier-V2-Integration/dist/cashier.js"></script> -->
-  <script type=text/javascript src='https://static.paymentiq.io/cashier/cashier.experimental.js'></script>
+  <!-- <script type=text/javascript src='https://static.paymentiq.io/cashier/cashier.experimental.js'></script> -->
   <!-- <script type=text/javascript src='http://localhost:9091/dist/cashier.js'></script> -->
+  <script src="file:///Users/hakansundstrom/Documents/dev/work/PaymentIQ-Cashier-V2-Integration/dist/cashier.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <style>
     body {
@@ -34,10 +35,10 @@
 <script>
 
 var configs = {
-  "merchantId": 1015,
+  "merchantId": 198003,
   "userId": 'PayTestSE',
   "sessionId": 123,
-  "environment": "test",
+  "environment": "development",
   "containerWidth": '100%',
   "containerHeight": 'auto',
   containerMinHeight: '500px',
@@ -45,7 +46,15 @@ var configs = {
   fetchConfig: true,
   // providerType: 'paypal',
   allowMobilePopup: true,
-  tabs: true
+  tabs: true,
+  trackingPixels: [
+    {
+      type: 'allDeposits', // Add one of these event types: 'firstDeposit', 'allDeposits', or 'allWithdrawals'
+      scriptSrc: 'http://127.0.0.1:8080/test.js', // Script source to load when intializing the cashier,
+      trackingName: 'All deposit', // Custom name of this type of event, eg. "All-Deposits",
+      imgSrc: 'https://dif.se/App_Themes/DIF/images/DIF_primar_skold_RGB.png', // Add a source to the tracking pixel (img) that should be fired when the event occurs
+    }
+  ]
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
