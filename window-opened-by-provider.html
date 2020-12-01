@@ -29,9 +29,15 @@
 
   const successWindow = () => {
     console.log('successWindow')
-    const txId = getParams().txId
-    console.log(getParams())
+    const { txId } = getParams()
     window.open(`http://localhost:5000/redirect-success?txId=${txId}`)
+  }
+
+  window.onload = () => {
+    const { autoSubmit } = getParams()
+    if (autoSubmit) {
+      setTimeout(successWindow, 1200)
+    }
   }
 </script>
 </body>
