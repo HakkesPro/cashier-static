@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Cashier HTML Example</title>
-<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script>
-<!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.1.0.18.js'></script> -->
-<!-- <script type=text/javascript src='http://192.168.10.104:9091/dist/cashier.js'></script> -->
-<style> html, body { margin: 0px; overflow: hidden; } 
-#cashier {
-	height: 100vh;
-  display: flex;
-  justify-content: center;
-}
-</style>
+<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.js'></script>
+<style> html, body { margin: 0px; } #cashier { height: 100vh; }</style>
 </head>
 <body>
 
@@ -22,21 +15,13 @@
 
 <script>
  
- var configs = {
-  fetchConfig: true,
-  merchantId: 198003,
-	userId: "PayTestSE",
-  containerWidth: '550px',
-  containerHeight: 'auto',
-  tabs: true,
-  history: true,
-  environment: 'test',
-  providerType: 'paypal'
-}
-
 var CashierInstance = new _PaymentIQCashier('#cashier',
 {
-  ...configs
+	"merchantId": "1015",
+	"userId": 123,
+	"sessionId": 123,
+	"environment": "test",
+	"theme": {}
 },
   (api) => {    
     api.on({

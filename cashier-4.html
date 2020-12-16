@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Cashier HTML Example</title>
-<!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script> -->
-<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.1.0.18.js'></script>
+<script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.experimental.js'></script>
+<!-- <script type=text/javascript src='https://pay.paymentiq.io/cashier/cashier.1.0.18.js'></script> -->
 <!-- <script type=text/javascript src='https://192.168.10.104:9091/dist/cashier.js'></script> -->
 <style> html, body { margin: 0px; overflow: hidden; } 
 #cashier {
-	height: 100vh;
+  height: 400px;
+  width: 400px;
   display: flex;
+  border: 1px solid green;
+  margin: 50px;
 }
 </style>
 </head>
@@ -21,16 +24,23 @@
 
 <script>
  
+//  William Hill config
  var configs = {
-  fetchConfig: false,
-  merchantId: 198003,
-	userId: "PayTestCA",
-  containerWidth: '100%',
-  containerHeight: '95vh',
-  tabs: true,
-  history: true,
-  environment: 'test',
-  providerType: 'idebit'
+  allowCancelPendingWithdrawal: "undefined",
+  amount: "10",
+  bonusCode: "NOBONUS",
+  channelId: "I-QD",
+  containerHeight: "100%",
+  environment: "test",
+  fetchConfig: "true",
+  locale: "sv_SE",
+  merchantId: "100006208",
+  method: "deposit",
+  mode: "gambling",
+  pendingTab: "false",
+  sessionId: "RedbetSE:642f6223f0d5425e808fdc4c5f13954f_610090597",
+  tabs: "false",
+  userId: "610090597"
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
