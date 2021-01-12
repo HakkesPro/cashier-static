@@ -23,14 +23,23 @@ var CashierInstance = new _PaymentIQCashier('#cashier',
 	"environment": "test",
 	"theme": {}
 },
-  (api) => {    
+  (api) => {  
     api.on({
       update: data => console.log('The passed in data was set', data),
       success: data => console.log('Transaction was completed successfully', data),
       failure: data => console.log('Transaction failed', data),
       isLoading: data => console.log('Data is loading', data),
       doneLoading: data => console.log('Data has been successfully downloaded', data),
-      newProviderWindow: data => console.log('A new window / iframe has opened', data)
+      newProviderWindow: data => console.log('A new window / iframe has opened', data),
+      paymentMethodSelect: data => {
+        console.log(data.data.type)
+        console.log('paymentMethodSelect')
+        api.set({
+          config: {
+            predefinedAmounts: '12,43,65,32'
+          }
+        })
+      }
     }),
   api.css(`
   
