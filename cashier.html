@@ -35,19 +35,22 @@
 <script>
 
 var configs = {
-  "merchantId": 1015,
+  "merchantId": 198003,
   "userId": 'PayTestSE',
   "sessionId": 123,
   "environment": "test",
   "containerWidth": '100%',
   "containerHeight": '300px',
   containerMinHeight: '500px',
+  showReceipt: 'only',
+  txRefId: 2601642
   // showTransactionsOnly: true,
   // fetchConfig: true,
   // providerType: 'paypal',
-  allowMobilePopup: true,
-  tabs: true,
-  initLoadErrorTimeout: 3000
+  // allowMobilePopup: true,
+  // tabs: true,
+  // initLoadErrorTimeout: 3000,
+  // singlePageFlow: false
 }
 
 var CashierInstance = new _PaymentIQCashier('#cashier',
