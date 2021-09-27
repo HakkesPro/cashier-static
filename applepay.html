@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cashier applepay</title>
+  <!-- <script type=text/javascript src="/Users/hakansundstrom/Documents/Dev/Work/PaymentIQ-Cashier-V2-Integration/dist/cashier.js"></script> -->
+  <script type=text/javascript src='https://static.paymentiq.io/cashier/cashier.js'></script>
+  <!-- <script type=text/javascript src='http://localhost:9091/dist/cashier.js'></script> -->
+  <!-- <script src="file:///Users/hakansundstrom/Documents/dev/work/PaymentIQ-Cashier-V2-Integration/dist/cashier.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+  <style>
+    body {
+      margin: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    #cashier {
+      width: 400px;
+      max-width: 450px;
+      border-radius: 5px;
+      padding: 3px;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='cashier'></div>
+
+
+<script>
+
+var configs = {
+  merchantId: 1015,
+  userId: 'ApplePay',
+  environment: 'test',
+  globalSubmit: true,
+}
+
+var CashierInstance = new _PaymentIQCashier('#cashier',
+{
+  ...configs
+},
+  (api) => {
+    api.on({
+      cashierInitLoad: () => console.log('Cashier init load'),
+      update: data => console.log('The passed in data was set', data),
+      success: data => console.log('Transaction was completed successfully', data),
+      failure: data => console.log('Transaction failed', data),
+      pending: data => console.log('Transaction is pending', data),
+      unresolved: data => console.log('Transaction is unresolved', data),
+      isLoading: data => console.log('Data is loading', data),
+      doneLoading: data => console.log('Data has been successfully downloaded', data),
+      newProviderWindow: data => console.log('A new window / iframe has opened', data),
+      paymentMethodSelect: data => console.log('Payment method was selected', data),
+      paymentMethodPageEntered: data => console.log('New payment method page was opened', data),
+      navigate: data => console.log('Path navigation triggered', data),
+      cancelledPendingWD: data => console.log('A pending withdrawal has been cancelled', data),
+      validationFailed: data => console.log('Transaction attempt failed at validation', data),
+      cancelled: data => console.log('Transaction cancelled by user', data),
+      onLoadError: data => console.log('onLoadError error', data)
+    }),
+  api.css(`
+  #cashier .tabs tab {
+    background: black!important;
+  }
+.terms-and-conditions-container {
+  background: yellow!important;
+}
+`)
+})
+
+window.addEventListener('message', e => {
+  if (e.data.eventType === 'APP_SET_HEIGHT') {
+    console.log('NEW HEIGHT HAS BEEN REPORTED', {
+      eventType: e.data.eventType,
+      height: e.data.payload.height,
+      info: 'Min. height is 500px'
+    })
+  }
+})
+
+</script>
+</body>
+
+</html>
